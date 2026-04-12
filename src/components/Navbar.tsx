@@ -22,7 +22,7 @@ export default function Navbar() {
           <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             About
           </a>
-          <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <a href="/explore" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Explore
           </a>
         </div>
