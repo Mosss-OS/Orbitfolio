@@ -53,7 +53,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.7 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <button className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:brightness-110 transition-all glow-primary">
+          <a href="/explore" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:brightness-110 transition-all glow-primary">
             Explore the Graph
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" className="ml-1">
               <path d="M5 12l5-5-5-5" />
