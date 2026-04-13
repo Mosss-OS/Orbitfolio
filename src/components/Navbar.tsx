@@ -5,14 +5,14 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/90 backdrop-blur-xl">
       <div className="container mx-auto flex h-14 items-center justify-between px-4 md:px-8">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-full bg-primary/20 flex items-center justify-center">
-            <div className="h-3 w-3 rounded-full bg-primary animate-pulse-glow" />
+          <div className="h-7 w-7 rounded-full bg-primary/15 flex items-center justify-center">
+            <div className="h-3 w-3 rounded-full bg-primary" />
           </div>
-          <span className="font-display text-lg font-bold tracking-tight text-foreground">
+          <span className="text-lg font-bold tracking-tight text-foreground">
             Orbitfolio
           </span>
         </a>
@@ -55,7 +55,7 @@ export default function Navbar() {
           className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl px-4 py-4 space-y-3"
         >
           <a href="#features" className="block text-sm text-muted-foreground">About</a>
-          <a href="#how-it-works" className="block text-sm text-muted-foreground">Explore</a>
+          <a href="/explore" className="block text-sm text-muted-foreground">Explore</a>
           <button className="w-full text-sm font-medium text-foreground border border-border px-4 py-2 rounded-lg">
             Connect Wallet
           </button>

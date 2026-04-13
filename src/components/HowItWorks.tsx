@@ -63,7 +63,7 @@ export default function HowItWorks() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1 }}
-          className="font-display text-3xl md:text-5xl font-bold text-center text-foreground mb-16 tracking-tight"
+          className="text-2xl md:text-3xl font-bold text-center text-foreground mb-16 tracking-tight"
         >
           Connect. Visualise. Verify.
         </motion.h2>
@@ -75,19 +75,19 @@ export default function HowItWorks() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 + i * 0.15, duration: 0.5 }}
-              className="bg-card-gradient border border-border rounded-xl p-8 hover:border-primary/30 transition-all group"
+              className="bg-card-gradient border border-border rounded-xl p-8 hover:border-primary/30 transition-all group shadow-sm"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   {step.icon}
                 </div>
                 {step.badge && (
-                  <span className="text-[10px] font-medium tracking-wider uppercase bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                  <span className="text-2xs font-medium tracking-wider uppercase bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                     {step.badge}
                   </span>
                 )}
               </div>
-              <h3 className="font-display text-xl font-semibold text-foreground mb-3">
+              <h3 className="text-base font-semibold text-foreground mb-3">
                 {step.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
