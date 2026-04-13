@@ -1,9 +1,7 @@
-import { useRef, useState, useCallback, useEffect } from "react";
-import Map, { MapRef, Source, Layer, Marker } from "react-map-gl";
+import { useRef, useState, useCallback } from "react";
+import Map, { MapRef, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-// You need a real Mapbox token. Get one free at https://account.mapbox.com/
-// This is a publishable client token, safe to include in frontend code.
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw";
 
 const PROTOCOL_MARKERS = [
@@ -27,9 +25,6 @@ export default function ExplorePage() {
   const mapRef = useRef<MapRef>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [hovered, setHovered] = useState<HoveredProtocol | null>(null);
-  const [useToken, setUseToken] = useState(true);
-
-  // Sidebar panel state
   const [selectedProtocol, setSelectedProtocol] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -37,13 +32,12 @@ export default function ExplorePage() {
     setMapLoaded(true);
     const map = mapRef.current?.getMap();
     if (map) {
-      // Add atmosphere/fog for the globe effect
       map.setFog({
-        color: "rgb(10, 14, 26)",
-        "high-color": "rgb(20, 30, 60)",
+        color: "rgb(230, 235, 240)",
+        "high-color": "rgb(180, 200, 220)",
         "horizon-blend": 0.08,
-        "space-color": "rgb(5, 10, 20)",
-        "star-intensity": 0.6,
+        "space-color": "rgb(210, 220, 235)",
+        "star-intensity": 0.15,
       });
     }
   }, []);
@@ -59,18 +53,16 @@ export default function ExplorePage() {
     });
   };
 
-  const selectedData = PROTOCOL_MARKERS.find((p) => p.name === selectedProtocol);
-
   return (
     <div className="h-screen w-screen bg-background relative overflow-hidden">
       {/* Top nav bar */}
-      <nav className="absolute top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+      <nav className="absolute top-0 left-0 right-0 z-50 border-b border-border bg-background/90 backdrop-blur-xl">
         <div className="flex h-14 items-center justify-between px-4 md:px-8">
           <a href="/" className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-full bg-primary/20 flex items-center justify-center">
-              <div className="h-3 w-3 rounded-full bg-primary animate-pulse-glow" />
+            <div className="h-7 w-7 rounded-full bg-primary/15 flex items-center justify-center">
+              <div className="h-3 w-3 rounded-full bg-primary" />
             </div>
-            <span className="font-display text-lg font-bold tracking-tight text-foreground">
+            <span className="text-lg font-bold tracking-tight text-foreground">
               Orbitfolio
             </span>
           </a>
@@ -90,16 +82,15 @@ export default function ExplorePage() {
         </div>
       </nav>
 
-      {/* Sidebar panel — like RegenAtlas */}
+      {/* Sidebar panel */}
       <div
         className={`absolute top-14 left-0 z-40 h-[calc(100vh-3.5rem)] w-[380px] bg-background/95 backdrop-blur-xl border-r border-border transition-transform duration-300 overflow-y-auto ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Sidebar toggle */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="absolute -right-8 top-4 z-50 w-8 h-8 bg-card border border-border rounded-r-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute -right-8 top-4 z-50 w-8 h-8 bg-background border border-border rounded-r-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
         >
           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2">
             {sidebarOpen ? <path d="M9 2L4 7l5 5" /> : <path d="M5 2l5 5-5 5" />}
@@ -117,7 +108,6 @@ export default function ExplorePage() {
             <span className="text-sm font-medium">Protocols ({PROTOCOL_MARKERS.length})</span>
           </div>
 
-          {/* Search */}
           <div className="relative">
             <svg
               width="14"
@@ -148,10 +138,9 @@ export default function ExplorePage() {
                 selectedProtocol === protocol.name ? "bg-card" : ""
               }`}
             >
-              {/* Protocol icon */}
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-                style={{ backgroundColor: `${protocol.color}20` }}
+                style={{ backgroundColor: `${protocol.color}15` }}
               >
                 <div
                   className="w-4 h-4 rounded-full"
@@ -161,7 +150,7 @@ export default function ExplorePage() {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="label-caps text-muted-foreground/60 text-[10px]">DeFi</span>
+                  <span className="label-caps text-muted-foreground/60 text-2xs">DeFi</span>
                 </div>
                 <h3 className="text-sm font-semibold text-foreground truncate">
                   {protocol.name}
@@ -191,12 +180,11 @@ export default function ExplorePage() {
           }}
           projection={{ name: "globe" } as any}
           style={{ width: "100%", height: "100%" }}
-          mapStyle="mapbox://styles/mapbox/dark-v11"
+          mapStyle="mapbox://styles/mapbox/light-v11"
           onLoad={handleMapLoad}
           attributionControl={false}
           renderWorldCopies={false}
         >
-          {/* Protocol markers */}
           {PROTOCOL_MARKERS.map((protocol) => (
             <Marker
               key={protocol.name}
@@ -218,12 +206,10 @@ export default function ExplorePage() {
                 }
                 onMouseLeave={() => setHovered(null)}
               >
-                {/* Outer pulse */}
                 <div
                   className="absolute -inset-3 rounded-full animate-ping opacity-30"
                   style={{ backgroundColor: protocol.color }}
                 />
-                {/* Inner dot */}
                 <div
                   className="w-4 h-4 rounded-full border-2 shadow-lg transition-transform group-hover:scale-150"
                   style={{
@@ -237,11 +223,10 @@ export default function ExplorePage() {
           ))}
         </Map>
 
-        {/* Mapbox token fallback overlay */}
         {!mapLoaded && (
           <div className="absolute inset-0 bg-background flex items-center justify-center">
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 animate-pulse">
+              <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center mx-auto mb-4 animate-pulse">
                 <div className="w-5 h-5 rounded-full bg-primary" />
               </div>
               <p className="text-sm text-muted-foreground">Loading globe...</p>
@@ -253,7 +238,7 @@ export default function ExplorePage() {
       {/* Hover tooltip */}
       {hovered && (
         <div
-          className="fixed z-[100] pointer-events-none bg-card/95 backdrop-blur-sm border border-border px-4 py-3 rounded-xl shadow-2xl"
+          className="fixed z-[100] pointer-events-none bg-background/95 backdrop-blur-sm border border-border px-4 py-3 rounded-xl shadow-lg"
           style={{ left: hovered.x + 16, top: hovered.y - 20 }}
         >
           <div className="flex items-center gap-2 mb-1">
@@ -264,16 +249,16 @@ export default function ExplorePage() {
         </div>
       )}
 
-      {/* Bottom bar — like RegenAtlas */}
-      <div className="absolute bottom-0 left-0 right-0 z-40 border-t border-border/50 bg-background/80 backdrop-blur-xl">
+      {/* Bottom bar */}
+      <div className="absolute bottom-0 left-0 right-0 z-40 border-t border-border bg-background/80 backdrop-blur-xl">
         <div className="flex items-center justify-between px-4 md:px-8 py-2">
-          <span className="text-[10px] text-muted-foreground">© Orbitfolio 2026</span>
+          <span className="text-2xs text-muted-foreground">© Orbitfolio 2026</span>
           <div className="flex items-center gap-4">
-            <button className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">
+            <button className="text-2xs text-muted-foreground hover:text-foreground transition-colors">
               List Project
             </button>
             <span className="w-px h-3 bg-border" />
-            <button className="text-[10px] text-muted-foreground hover:text-foreground transition-colors">
+            <button className="text-2xs text-muted-foreground hover:text-foreground transition-colors">
               Subscribe
             </button>
           </div>

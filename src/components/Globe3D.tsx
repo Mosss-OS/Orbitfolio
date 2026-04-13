@@ -3,7 +3,6 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Sphere, Line, Html } from "@react-three/drei";
 import * as THREE from "three";
 
-// Generate points on a sphere surface
 function generateSpherePoints(count: number, radius: number) {
   const points: THREE.Vector3[] = [];
   for (let i = 0; i < count; i++) {
@@ -20,7 +19,6 @@ function generateSpherePoints(count: number, radius: number) {
   return points;
 }
 
-// Generate connections between nearby points
 function generateConnections(points: THREE.Vector3[], maxDist: number) {
   const connections: [THREE.Vector3, THREE.Vector3][] = [];
   for (let i = 0; i < points.length; i++) {
@@ -33,7 +31,6 @@ function generateConnections(points: THREE.Vector3[], maxDist: number) {
   return connections;
 }
 
-// Protocol nodes floating inside/around the globe
 const PROTOCOL_NODES = [
   { name: "Uniswap", color: "#FF007A", pos: [0.8, 1.2, 0.5] },
   { name: "Aave", color: "#B6509E", pos: [-1.0, 0.8, -0.6] },
@@ -68,14 +65,13 @@ function ProtocolNode({ position, color, name }: { position: [number, number, nu
           emissiveIntensity={hovered ? 2 : 0.8}
         />
       </mesh>
-      {/* Glow ring */}
       <mesh position={position}>
         <ringGeometry args={[0.1, 0.14, 32]} />
         <meshBasicMaterial color={color} transparent opacity={hovered ? 0.6 : 0.2} side={THREE.DoubleSide} />
       </mesh>
       {hovered && (
         <Html position={position} center distanceFactor={5}>
-          <div className="bg-card/90 backdrop-blur-sm border border-border px-3 py-1.5 rounded-lg whitespace-nowrap">
+          <div className="bg-background/90 backdrop-blur-sm border border-border px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg">
             <span className="text-xs font-medium text-foreground">{name}</span>
           </div>
         </Html>
@@ -93,7 +89,7 @@ function GlobeWireframe() {
     return { points: pts, connections: conns };
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.001;
     }
@@ -101,43 +97,38 @@ function GlobeWireframe() {
 
   return (
     <group ref={groupRef}>
-      {/* Wireframe sphere */}
       <Sphere args={[1.58, 32, 32]}>
-        <meshBasicMaterial color="#0ea5e9" wireframe transparent opacity={0.06} />
+        <meshBasicMaterial color="#2d9d78" wireframe transparent opacity={0.08} />
       </Sphere>
 
-      {/* Inner glow sphere */}
       <Sphere args={[1.5, 32, 32]}>
         <meshStandardMaterial
-          color="#050a14"
-          emissive="#0ea5e9"
-          emissiveIntensity={0.05}
+          color="#f0f4f0"
+          emissive="#2d9d78"
+          emissiveIntensity={0.03}
           transparent
-          opacity={0.3}
+          opacity={0.2}
         />
       </Sphere>
 
-      {/* Network points */}
       {points.map((point, i) => (
         <mesh key={i} position={point}>
           <sphereGeometry args={[0.015, 8, 8]} />
-          <meshBasicMaterial color="#0ea5e9" transparent opacity={0.5} />
+          <meshBasicMaterial color="#2d9d78" transparent opacity={0.4} />
         </mesh>
       ))}
 
-      {/* Network connections */}
       {connections.map((conn, i) => (
         <Line
           key={i}
           points={[conn[0], conn[1]]}
-          color="#0ea5e9"
+          color="#2d9d78"
           transparent
-          opacity={0.12}
+          opacity={0.1}
           lineWidth={0.5}
         />
       ))}
 
-      {/* Protocol nodes */}
       {PROTOCOL_NODES.map((node) => (
         <ProtocolNode
           key={node.name}
@@ -147,29 +138,26 @@ function GlobeWireframe() {
         />
       ))}
 
-      {/* Center wallet node */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[0.12, 16, 16]} />
         <meshStandardMaterial
-          color="#8b5cf6"
-          emissive="#8b5cf6"
+          color="#7c5cbf"
+          emissive="#7c5cbf"
           emissiveIntensity={1.2}
         />
       </mesh>
       <mesh position={[0, 0, 0]}>
         <ringGeometry args={[0.16, 0.2, 32]} />
-        <meshBasicMaterial color="#8b5cf6" transparent opacity={0.3} side={THREE.DoubleSide} />
+        <meshBasicMaterial color="#7c5cbf" transparent opacity={0.3} side={THREE.DoubleSide} />
       </mesh>
     </group>
   );
 }
 
 function Stars() {
-  const starsRef = useRef<THREE.Points>(null);
-
   const positions = useMemo(() => {
-    const pos = new Float32Array(2000 * 3);
-    for (let i = 0; i < 2000; i++) {
+    const pos = new Float32Array(1000 * 3);
+    for (let i = 0; i < 1000; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 50;
       pos[i * 3 + 1] = (Math.random() - 0.5) * 50;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 50;
@@ -178,25 +166,21 @@ function Stars() {
   }, []);
 
   return (
-    <points ref={starsRef}>
+    <points>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={2000}
+          count={1000}
           array={positions}
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.03} color="#ffffff" transparent opacity={0.6} sizeAttenuation />
+      <pointsMaterial size={0.03} color="#94a3b8" transparent opacity={0.3} sizeAttenuation />
     </points>
   );
 }
 
 function CameraController() {
-  const { camera } = useThree();
-  useFrame(() => {
-    // Subtle auto-movement
-  });
   return (
     <OrbitControls
       enablePan={false}
@@ -219,9 +203,9 @@ export default function Globe3D() {
         style={{ background: "transparent" }}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={0.3} />
-        <pointLight position={[5, 5, 5]} intensity={0.8} color="#0ea5e9" />
-        <pointLight position={[-5, -3, 3]} intensity={0.4} color="#8b5cf6" />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[5, 5, 5]} intensity={0.6} color="#2d9d78" />
+        <pointLight position={[-5, -3, 3]} intensity={0.3} color="#7c5cbf" />
 
         <Stars />
         <GlobeWireframe />

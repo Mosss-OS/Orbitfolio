@@ -7,14 +7,13 @@ export default function CTASection() {
 
   return (
     <section ref={ref} className="relative py-24 md:py-32 bg-background overflow-hidden">
-      {/* Subtle glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 tracking-tight"
+          className="text-2xl md:text-3xl font-bold text-foreground mb-6 tracking-tight"
         >
           Start exploring
         </motion.h2>
@@ -22,7 +21,7 @@ export default function CTASection() {
           initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1 }}
-          className="text-muted-foreground max-w-lg mx-auto mb-10 text-sm md:text-base"
+          className="text-muted-foreground max-w-lg mx-auto mb-10 text-sm"
         >
           Your complete DeFi portfolio — visualised in 3D, verified by cosmic entropy. Built for ETHPrague 2026.
         </motion.p>

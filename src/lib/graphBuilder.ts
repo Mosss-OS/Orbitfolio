@@ -37,6 +37,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 const TOKEN_COLORS: Record<string, string> = {
   ETH: '#627EEA', WETH: '#627EEA', USDC: '#2775CA', USDT: '#26A17B',
   DAI: '#F5AC37', WBTC: '#F7931A', UNI: '#FF007A', AAVE: '#2EB8AC',
+  STETH: '#00A3FF', LDOWSTETH: '#00A3FF',
 };
 
 function calculateNodeSize(value: number, maxValue: number): number {
