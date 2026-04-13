@@ -5,7 +5,7 @@ const Globe3D = lazy(() => import("./Globe3D"));
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-space-gradient pt-14">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-surface-gradient pt-14">
       {/* Globe background */}
       <div className="absolute inset-0 z-0">
         <Suspense fallback={<div className="w-full h-full bg-background" />}>
@@ -14,7 +14,7 @@ export default function HeroSection() {
       </div>
 
       {/* Radial overlay for text readability */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/60 via-transparent to-background" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-background/70 via-transparent to-background" />
 
       {/* Content */}
       <div className="relative z-[2] text-center px-4 max-w-3xl mx-auto">
@@ -31,7 +31,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.1] mb-6"
+          className="text-4xl md:text-4xl font-bold tracking-tight text-foreground leading-[1.1] mb-6"
         >
           Your DeFi universe
           <br />
@@ -42,7 +42,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed"
+          className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed"
         >
           Connect your wallet and watch your DeFi positions, token balances, and on-chain money flows come alive as an interactive 3D force-directed graph.
         </motion.p>

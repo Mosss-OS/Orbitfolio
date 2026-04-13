@@ -20,7 +20,7 @@ export default function FeaturesSection() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="features" ref={ref} className="py-24 md:py-32 bg-space-gradient">
+    <section id="features" ref={ref} className="py-24 md:py-32 bg-surface-gradient">
       <div className="container mx-auto px-4 md:px-8">
         {/* Scrolling protocol ticker */}
         <div className="mb-20 overflow-hidden">
@@ -44,7 +44,7 @@ export default function FeaturesSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1 }}
-          className="font-display text-3xl md:text-5xl font-bold text-center text-foreground mb-6 tracking-tight"
+          className="text-2xl md:text-3xl font-bold text-center text-foreground mb-6 tracking-tight"
         >
           Beyond Token Balances
         </motion.h2>
@@ -52,7 +52,7 @@ export default function FeaturesSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2 }}
-          className="text-muted-foreground text-center max-w-2xl mx-auto mb-16 text-sm md:text-base leading-relaxed"
+          className="text-muted-foreground text-center max-w-2xl mx-auto mb-16 text-sm leading-relaxed"
         >
           Orbitfolio visualises the full spectrum of your on-chain activity — not just balances, but positions, flows, protocol interactions, and verifiable snapshots.
         </motion.p>
@@ -64,10 +64,10 @@ export default function FeaturesSection() {
               initial={{ opacity: 0, y: 25 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.3 + i * 0.1 }}
-              className="bg-card border border-border rounded-xl p-6 hover:border-primary/20 transition-colors"
+              className="bg-background border border-border rounded-xl p-6 hover:border-primary/30 transition-colors shadow-sm"
             >
               <div className="text-2xl mb-4 text-primary">{f.icon}</div>
-              <h3 className="font-display text-base font-semibold text-foreground mb-2">{f.title}</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-2">{f.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
             </motion.div>
           ))}
