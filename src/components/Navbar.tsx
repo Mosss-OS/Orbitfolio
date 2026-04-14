@@ -4,30 +4,27 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
       <div className="container mx-auto flex h-14 items-center justify-between px-4 md:px-8">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
-            <div className="h-3 w-3 rounded-full bg-primary-foreground" />
-          </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">
+          <span className="text-lg font-bold tracking-tight text-foreground uppercase">
             Orbitfolio
           </span>
         </a>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
-          <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <a href="/" className="text-sm text-primary font-medium">
             About
           </a>
-          <a href="/explore" className="text-sm text-primary font-medium transition-colors">
+          <a href="/explore" className="text-sm text-foreground hover:text-primary transition-colors">
             Explore
           </a>
         </div>
 
         {/* Connect Wallet */}
-        <button className="hidden md:flex items-center gap-2 text-sm font-medium text-foreground border border-border hover:border-foreground transition-colors px-4 py-2 rounded-lg">
+        <button className="hidden md:flex items-center gap-2 text-sm font-medium text-foreground border-l border-border pl-6 hover:text-primary transition-colors">
           Connect Wallet
         </button>
 
@@ -49,9 +46,9 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-border bg-background px-4 py-4 space-y-3">
-          <a href="#features" className="block text-sm text-muted-foreground">About</a>
-          <a href="/explore" className="block text-sm text-primary font-medium">Explore</a>
-          <button className="w-full text-sm font-medium text-foreground border border-border px-4 py-2 rounded-lg">
+          <a href="/" className="block text-sm text-primary font-medium">About</a>
+          <a href="/explore" className="block text-sm text-foreground">Explore</a>
+          <button className="w-full text-left text-sm font-medium text-foreground border-t border-border pt-3">
             Connect Wallet
           </button>
         </div>
